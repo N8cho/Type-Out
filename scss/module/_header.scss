@@ -1,0 +1,36 @@
+
+#header {
+	display: inline-block;
+	width: 100%;
+	padding: 10px 20px;
+	color: white;
+	background-color: gray;
+	opacity: 0;
+
+
+	.logo {
+		display: inline-block;
+		float: left; 
+
+		h1 {
+			font-size: 46px;
+		}
+	} 
+
+	#lives {
+		display: inline-block;
+
+		.life {
+			float: left;
+			margin-right: 10px;
+		}
+	}
+
+	#score
+	{ 
+		display: inline-block; 
+		float: right; 
+		font-family: 'Munro', Arial, Sans-Serif;
+		font-size: 46px;
+	} 
+}

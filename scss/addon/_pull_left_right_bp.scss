@@ -1,0 +1,73 @@
+/* Needs to be declared the variables for Bootstrap breakpoints */
+// 
+// $screen-sm-min: 768px;
+// $screen-xs-max: ($screen-sm-min - 1);
+// $screen-md-min: 992px;
+// $screen-sm-max: ($screen-md-min - 1);
+// $screen-lg-min: 1200px;
+// $screen-md-max: ($screen-lg-min - 1);
+
+
+@media (max-width: $screen-xs-max) {
+    .pull-xs-left {
+        float: left !important;
+    }
+    .pull-xs-right {
+        float: right !important;
+    }
+    
+    .align-xs-left {
+        text-align: left !important;
+    }
+    .align-xs-right {
+        text-align: right !important;
+    }
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    .pull-sm-left {
+        float: left !important;
+    }
+    .pull-sm-right {
+        float: right !important;
+    }
+    
+    .align-sm-left {
+        text-align: left !important;
+    }
+    .align-sm-right {
+        text-align: right !important;
+    }
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+    .pull-md-left {
+        float: left !important;
+    }
+    .pull-md-right {
+        float: right !important;
+    }
+    
+    .align-md-left {
+        text-align: left !important;
+    }
+    .align-md-right {
+        text-align: right !important;
+    }
+}
+
+@media (min-width: $screen-lg-min) {
+    .pull-lg-left {
+        float: left !important;
+    }
+    .pull-lg-right {
+        float: right !important;
+    }
+    
+    .align-lg-left {
+        text-align: left !important;
+    }
+    .align-lg-right {
+        text-align: right !important;
+    }
+}
