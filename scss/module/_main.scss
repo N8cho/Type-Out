@@ -1,4 +1,23 @@
+/*----- VARIABLES -----*/
 
+// Font-Family
+$font-pixel:    		'Munro', Arial, Sans-Serif;
+
+// Font-Sizes
+$font-size:				25px;
+$font-size-medium:		35px;
+$font-size-high:		50px;
+
+// Border-Radius
+$button-border-rd:		6px;
+
+// Color
+$blue-twitter: #4099FF;
+$blue-button: #4844fe;
+$gray-button: #777;
+
+
+a { text-decoration: none; }
 
 #main {
 	position: relative;
@@ -26,7 +45,7 @@
 	#buttons-holder {
 		width: 100%;
 		text-align: center;
-		font-family: 'Munro', Arial, Sans-Serif;
+		font-family: $font-pixel;
 
 		.button {
 			display: inline-block;
@@ -34,18 +53,18 @@
 			padding: 10px 15px; 
 			margin-bottom: 10px;
 			text-align: center; 
-			font-size: 25px;
-			@include border-radius( 6px );
+			font-size: $font-size;
+			@include border-radius( $button-border-rd );
 		}
 
 		#start
 		{  
-			background-color: #4844fe; 
+			background-color: $blue-button; 
 			color: #fff; 	
 		} 
 
 		#git-hub {
-			background-color: #777; 
+			background-color: $gray-button; 
 			color: #fff;
 
 			img {
@@ -62,12 +81,80 @@
 	}
 }
 
+#tweet-score-holder {
+	position: fixed;
+	width: 100%;
+    bottom: -200px;
+    //bottom: 50%;
+    transform: translateY(+50%);
+	font-family: $font-pixel;
+	font-size: $font-size;
+	text-align: center;
+	z-index: 100;
+
+	.tweet-score {
+		display: inline-block;
+
+		#score-holder {
+			padding: 40px 80px;
+			background: #ffffc4;
+			@include border-radius( $button-border-rd $button-border-rd 0px 0px );
+
+			.text { 
+				font-size: $font-size-medium;	
+			}
+
+			.score {
+				font-size: $font-size-high;
+			}
+		}
+
+		#tweet-it {
+			display: inline-block;
+			width: 100%;
+			background: $blue-twitter;
+			color: white;
+			padding: 10px 20px;
+    		@include border-radius( 0px 0px $button-border-rd $button-border-rd );
+		}
+	}
+}
+
+#end-buttons-holder {
+	display: inline-block;
+    width: 100%;
+	margin-top: 20px;
+
+	.button {
+		width: 45%;
+	    background: red;
+	    padding: 10px 20px;
+	    @include border-radius( $button-border-rd );
+
+	    &:hover {
+	    	cursor: pointer; 
+	    }
+	}
+
+	#return-to-title {
+		float: left;
+		background-color: $gray-button; 
+		color: #fff;
+	}
+
+	#play-again {
+		float: right;
+		background-color: $blue-button; 
+		color: #fff;
+	}
+}
+
 .bubb
 { 
 	position: fixed; 
 	width: 70px; 
 	height: 70px; 
-	font-family: 'Munro', Arial, Sans-Serif;
+	font-family: $font-pixel;
 	font-size: 35px;
 	font-weight: bold;
 	text-align: center; 
@@ -79,7 +166,7 @@
 
 .score {
 	color: green;
-	font-family: 'Munro', Arial, Sans-Serif;
+	font-family: $font-pixel;
 }
 
 #start:hover

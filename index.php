@@ -1,38 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<title>Type-Out</title>
-	<script src="lib/jquery-3.2.0.min.js"></script>
-	<script src="lib/jquery-ui-1.12.1.min.js"></script>
-	<script src="js/type-out.js"></script>
-	<link rel="stylesheet" href="css/type-out.css">
-</head>
-<body>
-	<div id="header">
-		<div id="lives">
-			<img class="life" width="46px" src="img/heart_full.png">
-			<img class="life" width="46px" src="img/heart_full.png">
-			<img class="life" width="46px" src="img/heart_full.png">
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Type-Out</title>
+		<!-- jQuery -->
+		<script src="lib/jquery-3.2.0.min.js"></script>
+		<!-- jQuery UI -->
+		<script src="lib/jquery-ui-1.12.1.min.js"></script>
+		<!-- Bootstrap 
+		<link rel="stylesheet" href="lib/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		-->
+		<!-- Type-Out -->
+		<script src="js/type-out.js"></script>
+		<link rel="stylesheet" href="css/type-out.css">
+	</head>
+	<body>
+		<div id="header">
+			<div id="lives">
+				<img class="life" width="46px" src="img/heart_full.png">
+				<img class="life" width="46px" src="img/heart_full.png">
+				<img class="life" width="46px" src="img/heart_full.png">
+			</div>
+		<!--
+			<div class="logo">
+				<img class="logo" width="190px" src="img/Type-Out.png" alt="Type-Out">
+			</div>
+		-->
+			<div id="score">0</div> 
 		</div>
-	<!--
-		<div class="logo">
-			<img class="logo" width="190px" src="img/Type-Out.png" alt="Type-Out">
-		</div>
-	-->
-		<div id="score">0</div> 
-	</div>
-	<div id="title-screen">
-		<div id="content-holder">
-			<img class="logo" src="img/Type-Out.png" alt="Type-Out">
-			<div id="buttons-holder">
-				<div id="start" class="button">START</div>
-				<div id="git-hub" class="button"><img src="img/github-logo.png"><span>View on Git-Hub<span></div>
+		<div id="title-screen">
+			<div id="content-holder">
+				<img class="logo" src="img/Type-Out.png" alt="Type-Out">
+				<div id="buttons-holder">
+					<div id="start" class="button">START</div>
+					<a id="git-hub" target="_blank" class="button" href="https://github.com/N8cho/Type-Out"><img src="img/github-logo.png"><span>View on Git-Hub</span></a>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div id="main">
-	</div>
-	<div id="footer">
-	</div>
-</body>
+		<div id="main">
+		</div>
+		<div id="tweet-score-holder">
+			<div class="tweet-score">
+				<div id="score-holder">
+					<span class="text">SCORE: </span><span class="score">XXX</span>
+				</div>
+				<a id="tweet-it" target="_blank" class="button twitter-share" href="">Tweet it</a>
+				<div id="end-buttons-holder">
+					<a id="return-to-title" class="button">TO TITLE</a>
+					<a id="play-again" class="button">PLAY AGAIN</a>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+		</div>
+	</body>
+</html>

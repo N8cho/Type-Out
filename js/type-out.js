@@ -11,7 +11,7 @@ $(document).ready(function()
 	console.log("Footer Height = " + $('#footer').height());
 
 	var gameRunning = 0;
-	var lifes = 3
+	var lifes = 3;
 	var waitTime = 1000;
 
 	// Pop Sound
@@ -48,7 +48,35 @@ $(document).ready(function()
       	console.log('%c GAME OVER ', 'background: #222; color: #bada55');
       	gameRunning = 0;
       	setTimeout(stopAll, 125);
-      	$('#main').delay(750).fadeOut('slow').queue(function() {
+
+      	showTweetScore(1, score);
+      	
+      }
+   }
+
+   $('#return-to-title').click( function() {
+   		returnToTitle();
+   });
+
+   $('#play-again').click( function() {
+   		cleanBubbles();
+   		resetGame();
+
+   		showTweetScore(0, score);
+
+   		$(this).delay(500).queue(function() {
+			gameRunning = 1;
+			console.log('Game STARTED !');
+			console.log('Remaining lifes = ' + lifes);
+			genLetter();
+			$(this).dequeue();
+		});
+   });
+
+   function returnToTitle() {
+   		showTweetScore(0, score);
+
+   		$('#main').delay(750).fadeOut('slow').queue(function() {
       		cleanBubbles();
       		$('#header').animate({opacity: 0.0}).queue(function() {
       			$('#title-screen').fadeIn('slow');
@@ -56,8 +84,19 @@ $(document).ready(function()
       		});
       		$(this).dequeue();
       	});
-      }
    }
+
+   function showEndScreen()
+   {
+
+   }
+
+	function resetGame() {
+		waitTime = 1000;
+		lifes = 3;
+		resetLives();
+		resetScore();
+	}
 
    // Reset Lives
 	function resetLives(el) {
@@ -137,15 +176,28 @@ $(document).ready(function()
 			animateLogo();
 		});
 	}
+
+	function showTweetScore( enter, value ) {
+		var tweet = $('#tweet-score-holder');
+		var score = $('#score-holder .score');
+		var center = ((tweet.parent().height()) / 2) + 200;
+
+		$("#tweet-it").attr("href", "https://twitter.com/intent/tweet?text=My%20%23Type-Out%20Score:%20"+value+"%20...%20Just%20beat%20it%20!")
+
+		if( enter )
+		{
+			score.html( value );
+			tweet.animate({ "bottom": "+="+center+"px" }, 1000);
+		}else{
+			tweet.animate({ "bottom": "-="+center+"px" }, 1000);
+		}
+	}
 	
 	animateLogo();
 
 	$('#start').click( function()
 	{
-		waitTime = 1000;
-		lifes = 3;
-		resetLives();
-		resetScore();
+		resetGame();
 
 		$('#title-screen').fadeOut('slow').queue(function() {
 			$('#header').animate({opacity: 1.0}).queue(function() {
@@ -224,8 +276,9 @@ $(document).ready(function()
 
 		if ( gameRunning ) {
 			var color = randomColor();
-			var k = Math.floor(Math.random() * ( 90 - 65 + 1 )) + 65;
-			var ch = String.fromCharCode(k);
+			var key = randomChar();
+			console.log('key[k]: ' + key['k']);
+			console.log('key[ch]: ' + key['ch']);
 
 			// Bounds where is able to move the element
 			var from = height + 100;
@@ -233,7 +286,7 @@ $(document).ready(function()
 			var left = Math.floor(Math.random() * (width-90)) + 30;
 			
 			// Set the element in screen and animate it
-			var $element = $('<span class="bubb bubb'+ k +'" style="left: '+ left +'px; top: '+ from +'px; background: url(\'./themes/theme1/img/bubble-sprite.png\') 0px 0px no-repeat; background-size: 300% 100%">'+ ch +'</span>');
+			var $element = $('<span class="bubb bubb'+ key['k'] +'" style="left: '+ left +'px; top: '+ from +'px; background: url(\'./themes/theme1/img/bubble-sprite.png\') 0px 0px no-repeat; background-size: 300% 100%">'+ key['ch'] +'</span>');
 			$('#main').append($element);
 			$element.animate({ "top": to }, 1000, function() {
 				$element.animate({ "top": from }, 1000, function(){
@@ -247,6 +300,16 @@ $(document).ready(function()
 			// Wait before generate the next element
 			setTimeout(genLetter, waitTime);
 		}
+	}
+
+	// Generate a random character
+	function randomChar()
+	{
+		var IDs = new Object();
+			IDs['k'] = Math.floor(Math.random() * ( 90 - 65 + 1 )) + 65;	// Generate a valid ASCII code
+			IDs['ch'] = String.fromCharCode(IDs['k']);						// Generate a valid ASCII value
+
+		return IDs;															// Return them as an object
 	}
 
 	// Generating a random color
