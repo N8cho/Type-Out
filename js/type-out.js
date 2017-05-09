@@ -1,130 +1,219 @@
+
+/*----- VARIABLES -----*/
+
+var audioMusic = document.createElement('audio');
+var audioMuted = false;
+
+var gameRunning = 0;
+var lifes = 3;
+var score = 0;
+var waitTime = 1000;
+
+
+/*----- FUNCTIONS  -----*/
+
+// Music Loop
+function playMusic( audioMusic ) {  
+
+	//var audioMusic = document.createElement('audio');
+	var audioFile = "./themes/theme1/music/music-loop.wav";
+
+	console.log("Music Loop - audioFile = " + audioFile);
+	audioMusic.setAttribute('src', audioFile);
+	audioMusic.volume = 0.1;
+	audioMusic.play();
+
+	audioMusic.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    });
+}	
+
+// Pop Sound
+function playPop( el ) {  
+
+	$(el).addClass('played');
+
+	var audioPop = document.createElement('audio');
+	var audioIndex = Math.floor((Math.random() * 3) + 1);
+	var audioFile = "./themes/theme1/sound/pop" + audioIndex + ".ogg";
+
+	console.log("Pop Sound - audioIndex = " + audioIndex);
+	console.log("Pop Sound - audioFile = " + audioFile);
+	audioPop.setAttribute('src', audioFile);
+	audioPop.volume = 1.0;
+	audioPop.play();
+}
+
+// Life lost
+function lifeLost( el ) {  
+	lifes--;
+	console.log('Remaining lifes = ' + lifes);
+	var heart = $('[class=life]').last();
+	heart.attr("src","img/heart_empty.png").addClass("empty");
+	heart.effect( "shake", { direction : "down", distance : 5 } );
+
+	var audioPop = document.createElement('audio');
+	var audioFile = "./themes/theme1/sound/life.wav";
+
+	console.log("Lost Life - audioFile = " + audioFile);
+	audioPop.setAttribute('src', audioFile);
+	audioPop.play();
+
+	if ( lifes < 1 ) {
+		console.log('%c GAME OVER ', 'background: #222; color: #bada55');
+		gameRunning = 0;
+		setTimeout(stopAll, 125);
+
+		showEndScreen(1, score);
+		
+	}
+}
+
+// Reset Lives
+function resetLives(el) {
+	$('.life').each(function() {
+		$(this).attr("src","img/heart_full.png").removeClass("empty");
+	});
+}
+
+// Reset Score
+function resetScore(el) {
+	score = 0;
+	$('#score').html(score);
+}
+
+// Stop all animated bubbles
+function stopAll() {
+	$('.bubb').each(function() {
+    	$(this).stop(true, false);
+    });
+}
+
+// Remove bubbles code
+function cleanBubbles() {
+	$('.bubb').each(function() {
+    	$(this).remove();
+    });
+}
+
+// Return to title screen from game screen
+function returnToTitle() {
+	showEndScreen(0, score);
+
+	$('#main').delay(750).fadeOut('slow').queue(function() {
+		cleanBubbles();
+		$('#header').animate({opacity: 0.0}).queue(function() {
+			$('#title-screen').fadeIn('slow');
+			$(this).dequeue();
+		});
+		$(this).dequeue();
+	});
+}
+
+// Reset games variables
+function resetGame() {
+	waitTime = 1000;
+	lifes = 3;
+	resetLives();
+	resetScore();
+}
+
+// Animate the Type-Out logo on title screen
+function animateLogo() {
+	var logo = $('#title-screen .logo');
+
+	logo.animate({ "top": "-=30px" }, 1000, function() {
+		logo.animate({ "top": "+=30px" }, 1000);
+		animateLogo();
+	});
+}
+
+// Populate and animate the element from where you can tweet your score
+function showEndScreen( enter, value ) {
+	var tweet = $('#tweet-score-holder');
+	var score = $('#score-holder .score');
+	var center = ((tweet.parent().height()) / 2) + 200;
+
+	$("#tweet-it").attr("href", "https://twitter.com/intent/tweet?text=My%20%23Type-Out%20Score:%20"+value+"%20...%20Just%20beat%20it%20!")
+
+	if( enter )
+	{
+		score.html( value );
+		tweet.animate({ "bottom": "+="+center+"px" }, 1000);
+	}else{
+		tweet.animate({ "bottom": "-="+center+"px" }, 1000);
+	}
+}
+
+// Generate a random character
+function randomChar()
+{
+	var IDs = new Object();
+		IDs['k'] = Math.floor(Math.random() * ( 90 - 65 + 1 )) + 65;	// Generate a valid ASCII code
+		IDs['ch'] = String.fromCharCode(IDs['k']);						// Generate a valid ASCII value
+
+	return IDs;															// Return them as an object
+}
+
+// Generating a random color
+function randomColor()
+{
+	var color = '';
+	var values = ['a', 'b', 'c', 'd', 'e', 'f', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+	for (c = 0; c < 6; c++) 
+	{
+		no = Math.floor(Math.random() * 15);
+		color += values[no];
+	}
+	return color;
+}
+
 $(document).ready(function()
 {
 	// Getting the canvas size and positioning the start button
 	var width = $('#main').width();
 	var height = $('#main').height() - $('#header').height() - 2*$('#footer').height();
-	var score = 0;
 
 	console.log("Screen Width = " + width);
 	console.log("Screen Height = " + height);
 	console.log("Header Height = " + $('#header').height());
 	console.log("Footer Height = " + $('#footer').height());
 
-	var gameRunning = 0;
-	var lifes = 3;
-	var waitTime = 1000;
+	
 
-	// Pop Sound
-	function playPop(el){  
+	$('#return-to-title').click( function() {
+		returnToTitle();
+	});
 
-	  $(el).addClass('played');
+	// Switch button to turn on-off music
+	$('#music-switch').click( function() {
+		if( !audioMuted ) {
+			audioMusic.volume = 0.0;
+			$('#music-switch img').attr("src","img/speaker-off.png");
+			audioMuted = true;
+		}else{
+			audioMusic.volume = 0.1;
+			$('#music-switch img').attr("src","img/speaker-on.png");
+			audioMuted = false;
+		}
+		
+	});
 
-	  var audioPop = document.createElement('audio');
-	  var audioIndex = Math.floor((Math.random() * 3) + 1);
-	  var audioFile = "./themes/theme1/sound/pop" + audioIndex + ".ogg";
+	$('#play-again').click( function() {
+		cleanBubbles();
+		resetGame();
 
-	  console.log("Pop Sound - audioIndex = " + audioIndex);
-	  console.log("Pop Sound - audioFile = " + audioFile);
-	  audioPop.setAttribute('src', audioFile);
-	  audioPop.play();
-	}
+		showEndScreen(0, score);
 
-   	// Life lost
-	function lifeLost(el){  
-	  lifes--;
-	  console.log('Remaining lifes = ' + lifes);
-	  var heart = $('[class=life]').last();
-	  heart.attr("src","img/heart_empty.png").addClass("empty");
-	  heart.effect( "shake", { direction : "down", distance : 5 } );
-
-      var audioPop = document.createElement('audio');
-      var audioFile = "./themes/theme1/sound/life.wav";
-
-      console.log("Lost Life - audioFile = " + audioFile);
-	  audioPop.setAttribute('src', audioFile);
-      audioPop.play();
-
-      if (lifes < 1) {
-      	console.log('%c GAME OVER ', 'background: #222; color: #bada55');
-      	gameRunning = 0;
-      	setTimeout(stopAll, 125);
-
-      	showTweetScore(1, score);
-      	
-      }
-   }
-
-   $('#return-to-title').click( function() {
-   		returnToTitle();
-   });
-
-   $('#play-again').click( function() {
-   		cleanBubbles();
-   		resetGame();
-
-   		showTweetScore(0, score);
-
-   		$(this).delay(500).queue(function() {
+		$(this).delay(500).queue(function() {
 			gameRunning = 1;
 			console.log('Game STARTED !');
 			console.log('Remaining lifes = ' + lifes);
 			genLetter();
 			$(this).dequeue();
 		});
-   });
-
-   function returnToTitle() {
-   		showTweetScore(0, score);
-
-   		$('#main').delay(750).fadeOut('slow').queue(function() {
-      		cleanBubbles();
-      		$('#header').animate({opacity: 0.0}).queue(function() {
-      			$('#title-screen').fadeIn('slow');
-      			$(this).dequeue();
-      		});
-      		$(this).dequeue();
-      	});
-   }
-
-   function showEndScreen()
-   {
-
-   }
-
-	function resetGame() {
-		waitTime = 1000;
-		lifes = 3;
-		resetLives();
-		resetScore();
-	}
-
-   // Reset Lives
-	function resetLives(el) {
-		$('.life').each(function() {
-			$(this).attr("src","img/heart_full.png").removeClass("empty");
-		});
-	}
-
-	// Reset Score
-	function resetScore(el) {
-		score = 0;
-		$('#score').html(score);
-	}
-
-	// Stop all animated bubbles
-	function stopAll() {
-		$('.bubb').each(function() {
-	    	$(this).stop(true, false);
-	    });
-	}
-
-	// Remove bubbles code
-	function cleanBubbles() {
-		$('.bubb').each(function() {
-	    	$(this).remove();
-	    });
-	}
-
+	});
 
 	$('#main').css(
 	{ 
@@ -168,33 +257,10 @@ $(document).ready(function()
 		}
 	];
 
-	function animateLogo() {
-		var logo = $('#title-screen .logo');
-
-		logo.animate({ "top": "-=30px" }, 1000, function() {
-			logo.animate({ "top": "+=30px" }, 1000);
-			animateLogo();
-		});
-	}
-
-	function showTweetScore( enter, value ) {
-		var tweet = $('#tweet-score-holder');
-		var score = $('#score-holder .score');
-		var center = ((tweet.parent().height()) / 2) + 200;
-
-		$("#tweet-it").attr("href", "https://twitter.com/intent/tweet?text=My%20%23Type-Out%20Score:%20"+value+"%20...%20Just%20beat%20it%20!")
-
-		if( enter )
-		{
-			score.html( value );
-			tweet.animate({ "bottom": "+="+center+"px" }, 1000);
-		}else{
-			tweet.animate({ "bottom": "-="+center+"px" }, 1000);
-		}
-	}
-	
+	// Start to animate the Type-Out logo on title screen
 	animateLogo();
 
+	// Start the game
 	$('#start').click( function()
 	{
 		resetGame();
@@ -301,27 +367,12 @@ $(document).ready(function()
 			setTimeout(genLetter, waitTime);
 		}
 	}
+	
+});
 
-	// Generate a random character
-	function randomChar()
-	{
-		var IDs = new Object();
-			IDs['k'] = Math.floor(Math.random() * ( 90 - 65 + 1 )) + 65;	// Generate a valid ASCII code
-			IDs['ch'] = String.fromCharCode(IDs['k']);						// Generate a valid ASCII value
 
-		return IDs;															// Return them as an object
-	}
-
-	// Generating a random color
-	function randomColor()
-	{
-		var color = '';
-		var values = ['a', 'b', 'c', 'd', 'e', 'f', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-		for (c = 0; c < 6; c++) 
-		{
-			no = Math.floor(Math.random() * 15);
-			color += values[no];
-		}
-		return color;
-	}
+// Wait for everything be setted on DOM before ...
+$(window).on("load", function() {
+	// Start playing background music
+    playMusic( audioMusic );
 });

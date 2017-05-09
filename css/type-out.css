@@ -805,14 +805,20 @@ a {
   -webkit-border-radius: 0px;
   border-radius: 0px 0px 6px 6px;
 }
+/* line 120, ../scss/module/_main.scss */
+#tweet-score-holder .tweet-score #tweet-it img {
+  display: inline-block;
+  vertical-align: middle;
+  padding-right: 1em;
+}
 
-/* line 123, ../scss/module/_main.scss */
+/* line 129, ../scss/module/_main.scss */
 #end-buttons-holder {
   display: inline-block;
   width: 100%;
   margin-top: 20px;
 }
-/* line 128, ../scss/module/_main.scss */
+/* line 134, ../scss/module/_main.scss */
 #end-buttons-holder .button {
   width: 45%;
   background: red;
@@ -821,24 +827,24 @@ a {
   -webkit-border-radius: 6px;
   border-radius: 6px;
 }
-/* line 134, ../scss/module/_main.scss */
+/* line 140, ../scss/module/_main.scss */
 #end-buttons-holder .button:hover {
   cursor: pointer;
 }
-/* line 139, ../scss/module/_main.scss */
+/* line 145, ../scss/module/_main.scss */
 #end-buttons-holder #return-to-title {
   float: left;
   background-color: #777;
   color: #fff;
 }
-/* line 145, ../scss/module/_main.scss */
+/* line 151, ../scss/module/_main.scss */
 #end-buttons-holder #play-again {
   float: right;
   background-color: #4844fe;
   color: #fff;
 }
 
-/* line 152, ../scss/module/_main.scss */
+/* line 158, ../scss/module/_main.scss */
 .bubb {
   position: fixed;
   width: 70px;
@@ -855,13 +861,13 @@ a {
   padding: 5px;
 }
 
-/* line 167, ../scss/module/_main.scss */
+/* line 173, ../scss/module/_main.scss */
 .score {
   color: green;
   font-family: "Munro", Arial, Sans-Serif;
 }
 
-/* line 172, ../scss/module/_main.scss */
+/* line 178, ../scss/module/_main.scss */
 #start:hover {
   cursor: pointer;
 }
@@ -870,8 +876,10 @@ a {
 #footer {
   position: absolute;
   width: 100%;
-  height: 25px;
   bottom: 0px;
-  background: lightgray;
-  visibility: hidden;
+}
+/* line 7, ../scss/module/_footer.scss */
+#footer #music-switch {
+  display: inline-block;
+  padding: 5px 10px;
 }

@@ -7,10 +7,6 @@
 		<script src="lib/jquery-3.2.0.min.js"></script>
 		<!-- jQuery UI -->
 		<script src="lib/jquery-ui-1.12.1.min.js"></script>
-		<!-- Bootstrap 
-		<link rel="stylesheet" href="lib/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="lib/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		-->
 		<!-- Type-Out -->
 		<script src="js/type-out.js"></script>
 		<link rel="stylesheet" href="css/type-out.css">
@@ -34,7 +30,7 @@
 				<img class="logo" src="img/Type-Out.png" alt="Type-Out">
 				<div id="buttons-holder">
 					<div id="start" class="button">START</div>
-					<a id="git-hub" target="_blank" class="button" href="https://github.com/N8cho/Type-Out"><img src="img/github-logo.png"><span>View on Git-Hub</span></a>
+					<a id="git-hub" target="_blank" class="button" href="https://github.com/N8cho/Type-Out"><img src="img/github-logo.png"></img><span>View on Git-Hub</span></a>
 				</div>
 			</div>
 		</div>
@@ -45,7 +41,7 @@
 				<div id="score-holder">
 					<span class="text">SCORE: </span><span class="score">XXX</span>
 				</div>
-				<a id="tweet-it" target="_blank" class="button twitter-share" href="">Tweet it</a>
+				<a id="tweet-it" target="_blank" class="button twitter-share" href="https://github.com/N8cho/Type-Out"><img src="img/twitter.png"></img><span>Tweet it</span></a>
 				<div id="end-buttons-holder">
 					<a id="return-to-title" class="button">TO TITLE</a>
 					<a id="play-again" class="button">PLAY AGAIN</a>
@@ -53,6 +49,7 @@
 			</div>
 		</div>
 		<div id="footer">
+			<div id="music-switch"><img src="img/speaker-on.png"><span></span></img></div>
 		</div>
 	</body>
 </html>
