@@ -41,7 +41,7 @@
 				<div id="score-holder">
 					<span class="text">SCORE: </span><span class="score">XXX</span>
 				</div>
-				<a id="tweet-it" target="_blank" class="button twitter-share" href="https://github.com/N8cho/Type-Out"><img src="img/twitter.png"></img><span>Tweet it</span></a>
+				<a id="tweet-it" target="_blank" class="button tw" href=""><img src="img/tw-bird.png"></img><span>Tweet it</span></a>
 				<div id="end-buttons-holder">
 					<a id="return-to-title" class="button">TO TITLE</a>
 					<a id="play-again" class="button">PLAY AGAIN</a>

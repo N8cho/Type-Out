@@ -876,7 +876,7 @@ a {
 #footer {
   position: absolute;
   width: 100%;
-  bottom: 0px;
+  bottom: 1px;
 }
 /* line 7, ../scss/module/_footer.scss */
 #footer #music-switch {

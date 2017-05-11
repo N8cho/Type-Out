@@ -66,12 +66,12 @@ function lifeLost( el ) {
 		setTimeout(stopAll, 125);
 
 		showEndScreen(1, score);
-		
 	}
 }
 
 // Reset Lives
 function resetLives(el) {
+	lifes = 3;
 	$('.life').each(function() {
 		$(this).attr("src","img/heart_full.png").removeClass("empty");
 	});
@@ -114,7 +114,6 @@ function returnToTitle() {
 // Reset games variables
 function resetGame() {
 	waitTime = 1000;
-	lifes = 3;
 	resetLives();
 	resetScore();
 }
@@ -135,7 +134,7 @@ function showEndScreen( enter, value ) {
 	var score = $('#score-holder .score');
 	var center = ((tweet.parent().height()) / 2) + 200;
 
-	$("#tweet-it").attr("href", "https://twitter.com/intent/tweet?text=My%20%23Type-Out%20Score:%20"+value+"%20...%20Just%20beat%20it%20!")
+	$("#tweet-it").attr("href", "https://twitter.com/intent/tweet?text=My%20%23Type-Out%20Score:%20"+value+"%20...%20Just%20beat%20it%20!");
 
 	if( enter )
 	{
@@ -180,11 +179,6 @@ $(document).ready(function()
 	console.log("Header Height = " + $('#header').height());
 	console.log("Footer Height = " + $('#footer').height());
 
-	
-
-	$('#return-to-title').click( function() {
-		returnToTitle();
-	});
 
 	// Switch button to turn on-off music
 	$('#music-switch').click( function() {
@@ -198,21 +192,6 @@ $(document).ready(function()
 			audioMuted = false;
 		}
 		
-	});
-
-	$('#play-again').click( function() {
-		cleanBubbles();
-		resetGame();
-
-		showEndScreen(0, score);
-
-		$(this).delay(500).queue(function() {
-			gameRunning = 1;
-			console.log('Game STARTED !');
-			console.log('Remaining lifes = ' + lifes);
-			genLetter();
-			$(this).dequeue();
-		});
 	});
 
 	$('#main').css(
@@ -279,6 +258,27 @@ $(document).ready(function()
 			});
 	    	$(this).dequeue();
 		});
+	});
+
+	// Start game again
+	$('#play-again').click( function() {
+		cleanBubbles();
+		resetGame();
+
+		showEndScreen(0, score);
+
+		$(this).delay(500).queue(function() {
+			gameRunning = 1;
+			console.log('Game STARTED !');
+			console.log('Remaining lifes = ' + lifes);
+			genLetter();
+			$(this).dequeue();
+		});
+	});
+
+	// Return to title screen
+	$('#return-to-title').click( function() {
+		returnToTitle();
 	});
 
 	
